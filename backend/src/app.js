@@ -44,4 +44,11 @@ app.post("/livros", (req, res) => {
     //codigo 201 é que foi criado algo novo, nesse caso um livro novo
 });
 
+//Rota para atualizar um livro especificio(PUT)
+app.put("/livros/:id", (req, res) => {
+    const index = buscadorLivros(req.params.id);
+    livros[index].titulo = req.body.titulo;
+    res.status(200).json(livros);
+});
+
 export default app;
