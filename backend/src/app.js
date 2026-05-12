@@ -7,11 +7,14 @@ app.use(express.json());
 const livros = [
     {
         id: 1,
-        titulo: "Ultimo romantico"
+        titulo: "Ultimo romantico",
+        descricao: "Livro bom"
     },
     {
         id: 2,
-        titulo: "Sabidao dos anjos"
+        titulo: "Sabidao dos anjos",
+        descricao: "Livro interessante"
+
     }
 ]
 
@@ -48,7 +51,16 @@ app.post("/livros", (req, res) => {
 app.put("/livros/:id", (req, res) => {
     const index = buscadorLivros(req.params.id);
     livros[index].titulo = req.body.titulo;
+    //abaixo metodo para atualizar a descrição do livro
+    livros[index].descricao = req.body.descricao;
     res.status(200).json(livros);
+});
+
+//Rota para deletar um livro especificio(DELETE)
+app.delete("/livros/:id", (req, res) =>{
+    const index = buscadorLivros(req.params.id);
+    livros.splice(index, 1);
+    res.status(200).send("Livro deletado!");
 });
 
 export default app;
