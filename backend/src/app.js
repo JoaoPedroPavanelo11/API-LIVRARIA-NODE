@@ -64,6 +64,3 @@ app.delete("/livros/:id", (req, res) =>{
 });
 
 export default app;
-
-//String de conexão com o MongoDB atlas, substitua <db_password> pela senha do usuário do banco de dados
-mongodb+srv://joaopedropavanelo_db_user:<db_password>@cluster0.4ubbw9k.mongodb.net/?appName=Cluster0
