@@ -1,5 +1,10 @@
 import express from 'express';
 //comando para importar o express que foi instalado no cmd
+import connectDB from './config/dbConnect.js';
+//conexão com o banco de dados, importando a função connectDB do arquivo dbConnect.js
+
+const conexaoDB = await connectDB();
+//variavel para armazenar a conexão com o banco de dados, usando a função connectDB que retorna a conexão
 
 const app = express();
 app.use(express.json());
