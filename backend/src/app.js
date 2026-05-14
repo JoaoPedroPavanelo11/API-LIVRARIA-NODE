@@ -6,6 +6,14 @@ import connectDB from './config/dbConnect.js';
 const conexaoDB = await connectDB();
 //variavel para armazenar a conexão com o banco de dados, usando a função connectDB que retorna a conexão
 
+conexaoDB.on("error", (error)=>{
+    console.error("Erro de conexão", error);
+});
+
+conexaoDB.once("open", () =>{
+    console.log("Conexao com o banco de dados estabelecida com sucesso!");
+});
+
 const app = express();
 app.use(express.json());
 
