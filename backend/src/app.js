@@ -1,15 +1,13 @@
+//------------ Metodos Importados ------------
 import express from 'express';
-//comando para importar o express que foi instalado no cmd
 import connectDB from './config/dbConnect.js';
-//conexão com o banco de dados, importando a função connectDB do arquivo dbConnect.js
+import livro from './models/livros.js';
+//--------------------------------------------
 
 const conexaoDB = await connectDB();
-//variavel para armazenar a conexão com o banco de dados, usando a função connectDB que retorna a conexão
-
 conexaoDB.on("error", (error)=>{
     console.error("Erro de conexão", error);
 });
-
 conexaoDB.once("open", () =>{
     console.log("Conexao com o banco de dados estabelecida com sucesso!");
 });
@@ -17,34 +15,14 @@ conexaoDB.once("open", () =>{
 const app = express();
 app.use(express.json());
 
-const livros = [
-    {
-        id: 1,
-        titulo: "Ultimo romantico",
-        descricao: "Livro bom"
-    },
-    {
-        id: 2,
-        titulo: "Sabidao dos anjos",
-        descricao: "Livro interessante"
-
-    }
-]
-
-//Função responsavel por buscar um livro especifico, ela recebe o id do livro como parametro e retorna o livro correspondente
-function buscadorLivros(id) {
-    return livros.findIndex(livros => {
-        return livros.id === Number(id);
-    })
-}
-
 app.get("/", (req, res) => {
     res.status(200).send("Curso de NodeJs");
 });
 
 
-app.get("/livros", (req, res) => {
-    res.status(200).json(livros);
+app.get("/livros", async (req, res) => {
+    const listaLivros = await livro.find({});
+    res.status(200).json(listaLivros);
 });
 
 //Rota para acessar um livro especifico , isso acontece via ID(EX: livro/1)
