@@ -1,7 +1,7 @@
 //------------ Metodos Importados ------------
 import express from 'express';
 import connectDB from './config/dbConnect.js';
-import livro from './models/livros.js';
+import livros from './models/livros.js';
 //--------------------------------------------
 
 const conexaoDB = await connectDB();
@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 
 
 app.get("/livros", async (req, res) => {
-    const listaLivros = await livro.find({});
+    const listaLivros = await livros.find({});
     res.status(200).json(listaLivros);
 });
 

@@ -9,6 +9,6 @@ const livrosSchema = new mongoose.Schema({
     paginas: {type: mongoose.Schema.Types.Number},
 }, {versionKey: false});
 
-const livro = mongoose.model("livros", livrosSchema);
+const livros = mongoose.model("livros", livrosSchema);
 
-export default livro;
+export default livros;
