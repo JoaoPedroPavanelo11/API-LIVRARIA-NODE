@@ -33,7 +33,8 @@ app.get("/livros/:id", (req, res) => {
 
 //rota para criar um POST
 app.post("/livros", (req, res) => {
-    livros.push(req.body);
+    const novoLivro = new livros(req.body);
+    novoLivro.save();
     res.status(201).send("Livro cadastrado!");
     //codigo 201 é que foi criado algo novo, nesse caso um livro novo
 });
