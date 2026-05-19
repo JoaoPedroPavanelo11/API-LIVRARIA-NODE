@@ -7,10 +7,7 @@ dns.setServers(["1.1.1.1","8.8.8.8"])
 async function connectDB() {
 
     await mongoose.connect(
-        "mongodb+srv://joaopedropavanelo_db_user:jpp260208@cluster0.4ubbw9k.mongodb.net/livraria?retryWrites=true&w=majority&appName=Cluster0",
-        {
-            dbName: "livraria"
-        }
+        process.env.DB_CONECTION_STRING
     );
 
     return mongoose.connection;
