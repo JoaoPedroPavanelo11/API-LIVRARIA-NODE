@@ -1,7 +1,7 @@
 //------------ Metodos Importados ------------
 import express from 'express';
 import connectDB from './config/dbConnect.js';
-import livros from './models/livros.js';
+import routers from './rotas/index.js';
 //--------------------------------------------
 
 const conexaoDB = await connectDB();
@@ -13,46 +13,6 @@ conexaoDB.once("open", () =>{
 });
 
 const app = express();
-app.use(express.json());
-
-app.get("/", (req, res) => {
-    res.status(200).send("Curso de NodeJs");
-});
-
-
-app.get("/livros", async (req, res) => {
-    const listaLivros = await livros.find({});
-    res.status(200).json(listaLivros);
-});
-
-//Rota para acessar um livro especifico , isso acontece via ID(EX: livro/1)
-app.get("/livros/:id", (req, res) => {
-    const index = buscadorLivros(req.params.id);
-    res.status(200).json(livros[index]);
-});
-
-//rota para criar um POST
-app.post("/livros", (req, res) => {
-    const novoLivro = new livros(req.body);
-    novoLivro.save();
-    res.status(201).send("Livro cadastrado!");
-    //codigo 201 é que foi criado algo novo, nesse caso um livro novo
-});
-
-//Rota para atualizar um livro especificio(PUT)
-app.put("/livros/:id", (req, res) => {
-    const index = buscadorLivros(req.params.id);
-    livros[index].titulo = req.body.titulo;
-    //abaixo metodo para atualizar a descrição do livro
-    livros[index].descricao = req.body.descricao;
-    res.status(200).json(livros);
-});
-
-//Rota para deletar um livro especificio(DELETE)
-app.delete("/livros/:id", (req, res) =>{
-    const index = buscadorLivros(req.params.id);
-    livros.splice(index, 1);
-    res.status(200).send("Livro deletado!");
-});
+routers(app);
 
 export default app;
